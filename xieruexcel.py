@@ -12,12 +12,15 @@ cursor = connect.cursor()
 workbook = xlwt.Workbook(encoding="utf-8")
 
 
+# 接收参数：工作表名，数据库表名
 def write_e(sheetname="", table=""):
     worksheet = workbook.add_sheet(sheetname)
 
     # 获取数据
     cursor.execute(f'select * from {table}')
+    # 表中所有数据
     rows = list(cursor.fetchall())
+    # 获取字段信息
     column = list(cursor.description)
     # 写入表头
     for i in range(len(column)):
